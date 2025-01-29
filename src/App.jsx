@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import abi from "./abi.json";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 
-const contractAddress = "YOUR_DEPLOYED_CONTRACT_ADDRESS";
+const contractAddress = "0x74D3ABD84772869404fc8aEbA9F2803EBB0101D6";
 
 function App() {
   const [taskTitle, setTaskTitle] = useState("");
@@ -14,7 +15,8 @@ function App() {
   }
 
   async function addTask() {
-    if (!taskTitle || !taskText) return alert("Please enter task details");
+    if (!taskTitle || !taskText)
+      return toast.error("Please enter task details");
     if (typeof window.ethereum !== "undefined") {
       await requestAccounts();
       const provider = new ethers.BrowserProvider(window.ethereum);
@@ -23,10 +25,10 @@ function App() {
       try {
         const tx = await contract.addTask(taskText, taskTitle, false);
         await tx.wait();
-        alert("Task added successfully");
+        toast.success("Task added successfully");
         getMyTasks();
       } catch (error) {
-        console.error("Error adding task:", error);
+        toast.error("Error adding task:", error);
       }
     }
   }
@@ -40,7 +42,7 @@ function App() {
         const taskList = await contract.getMyTask();
         setTasks(taskList);
       } catch (error) {
-        console.error("Error fetching tasks:", error);
+        toast.error("Error fetching tasks:", error);
       }
     }
   }
@@ -54,10 +56,10 @@ function App() {
       try {
         const tx = await contract.deleteTask(taskId);
         await tx.wait();
-        alert("Task deleted successfully");
+        toast.success("Task deleted successfully");
         getMyTasks();
       } catch (error) {
-        console.error("Error deleting task:", error);
+        toast.error("Error deleting task:", error);
       }
     }
   }
@@ -68,6 +70,19 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
       <h1>Task Manager</h1>
       <input
         type="text"
