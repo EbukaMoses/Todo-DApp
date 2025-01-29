@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import abi from "./abi.json";
+import "./index.css";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 
 const contractAddress = "0x74D3ABD84772869404fc8aEbA9F2803EBB0101D6";
@@ -69,43 +70,52 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Bounce}
-      />
-      <h1>Task Manager</h1>
-      <input
-        type="text"
-        placeholder="Task Title"
-        value={taskTitle}
-        onChange={(e) => setTaskTitle(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Task Description"
-        value={taskText}
-        onChange={(e) => setTaskText(e.target.value)}
-      />
-      <button onClick={addTask}>Add Task</button>
-      <h2>My Tasks</h2>
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <strong>{task.taskTitle}</strong>: {task.taskText}
-            <button onClick={() => deleteTask(task.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+    <div>
+      <div className="App">
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition={Bounce}
+        />
+        <div className="w-full bg-[#123] text-white flex justify-between py-5 px-8">
+          <h4 className="font-extrabold text-white">DAPP</h4>
+          {/* <h1 className="font-extrabold text-white">
+            Smart Contract Interaction
+          </h1> */}
+          <h2 className="text-white">@Web3Bridge</h2>
+        </div>
+        <h1>Ebuka Task Manager</h1>
+        <input
+          type="text"
+          placeholder="Task Title"
+          value={taskTitle}
+          onChange={(e) => setTaskTitle(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Task Description"
+          value={taskText}
+          onChange={(e) => setTaskText(e.target.value)}
+        />
+        <button onClick={addTask}>Add Task</button>
+        <h2>My Tasks</h2>
+        <ul>
+          {tasks.map((task) => (
+            <li key={task.id}>
+              <strong>{task.taskTitle}</strong>: {task.taskText}
+              <button onClick={() => deleteTask(task.id)}>Delete</button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
