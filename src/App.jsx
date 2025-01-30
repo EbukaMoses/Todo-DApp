@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import abi from "./abi.json";
 import "./index.css";
 import { Bounce, ToastContainer, toast } from "react-toastify";
+import { RiDeleteBin6Fill } from "react-icons/ri";
 
 const contractAddress = "0x74D3ABD84772869404fc8aEbA9F2803EBB0101D6";
 
@@ -85,36 +86,67 @@ function App() {
           theme="light"
           transition={Bounce}
         />
-        <div className="w-full bg-[#123] text-white flex justify-between py-5 px-8">
+        {/* Header  */}
+        <div className="w-full bg-gradient-to-r from-blue-500 to-green-500 text-white flex justify-between py-5 px-8">
           <h4 className="font-extrabold text-white">DAPP</h4>
           {/* <h1 className="font-extrabold text-white">
             Smart Contract Interaction
           </h1> */}
           <h2 className="text-white">@Web3Bridge</h2>
         </div>
-        <h1>Ebuka Task Manager</h1>
-        <input
-          type="text"
-          placeholder="Task Title"
-          value={taskTitle}
-          onChange={(e) => setTaskTitle(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Task Description"
-          value={taskText}
-          onChange={(e) => setTaskText(e.target.value)}
-        />
-        <button onClick={addTask}>Add Task</button>
-        <h2>My Tasks</h2>
-        <ul>
-          {tasks.map((task) => (
-            <li key={task.id}>
-              <strong>{task.taskTitle}</strong>: {task.taskText}
-              <button onClick={() => deleteTask(task.id)}>Delete</button>
-            </li>
-          ))}
-        </ul>
+
+        <div className="flex items-center gap-20 justify-center mt-28">
+          <div className="">
+            <h1 className="text-4xl font-bold mb-10">Ebuka Task Manager</h1>
+            <div className="flex flex-col justify-center items-center">
+              <input
+                type="text"
+                placeholder="Task Title"
+                value={taskTitle}
+                onChange={(e) => setTaskTitle(e.target.value)}
+                className="border-[2px] rounded-md px-2 py-1 w-full border-green-800 outline-none mb-2"
+              />
+              <textarea
+                name=""
+                className="border-[2px] rounded-md px-2 py-1 w-full h-[20vh] border-green-800 resize-none outline-none mb-4"
+                placeholder="Task Description"
+                value={taskText}
+                onChange={(e) => setTaskText(e.target.value)}
+              ></textarea>
+              {/* <input type="text" /> */}
+              <button
+                onClick={addTask}
+                className="bg-green-800 py-2 w-full rounded-md text-white font-bold"
+              >
+                Add Task
+              </button>
+            </div>
+          </div>
+          <div className="">
+            <h2 className="bg-green-800 mt-[80px] text-center py-3 w-[350px] mb-5 text-white font-bold">
+              My Tasks
+            </h2>
+            <ul>
+              {tasks.map((task) => (
+                <li
+                  key={task.id}
+                  className="flex justify-between items-center w-full shadow-md px-2 py-2 rounded-md"
+                >
+                  <h6>
+                    <strong>{task.taskTitle}</strong>: {task.taskText}
+                  </h6>
+                  <button
+                    onClick={() => deleteTask(task.id)}
+                    className=" text-[#E4040E]"
+                    title="delete item"
+                  >
+                    <RiDeleteBin6Fill />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
